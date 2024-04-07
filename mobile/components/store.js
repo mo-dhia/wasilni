@@ -25,7 +25,7 @@ export const states = create((set) => ({
     setVH: (v) => updateState(set, 'vh', v),
     inputRerender: false,
     setInputRender: (v) => updateState(set, 'inputRerender', v),
-    search: 0,
+    search: [],
     setSearch: (v) => updateState(set, 'search', v),
 }));
 
