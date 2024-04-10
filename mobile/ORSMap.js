@@ -1,43 +1,16 @@
-// ORSMap.js
-import React, { useState } from 'react';
 import { View, StyleSheet, Button } from 'react-native';
 import MapView, { Marker, Polyline } from 'react-native-maps';
-import axios from 'axios';
+import { locations, states } from './components/store';
 
-const ORSMap = () => {
-  const [origin, setOrigin] = useState(null);
-  const [destination, setDestination] = useState(null);
-  const [routeCoordinates, setRouteCoordinates] = useState([]);
-
-  const calculateRoute = async () => {
-    if (origin && destination) {
-      try {
-        const apiKey = '5b3ce3597851110001cf62480feb1c0e25a64aaaba9799d6f5b6b28b'; // Provided API key
-        const response = await axios.get(
-          `https://api.openrouteservice.org/v2/directions/driving-car?api_key=${apiKey}&start=${origin.longitude},${origin.latitude}&end=${destination.longitude},${destination.latitude}`
-        );
-
-        const { features } = response.data;
-
-        if (features.length > 0) {
-          const coordinates = features[0].geometry.coordinates.map(
-            (coordinate) => ({
-              latitude: coordinate[1],
-              longitude: coordinate[0],
-            })
-          );
-          setRouteCoordinates(coordinates);
-        }
-      } catch (error) {
-        console.error('Error fetching route:', error);
-      }
-    }
-  };
+const ORSMap = ({ view }) => {
+  const { routeCoordinates, destination, setDestination, origin, setOrigin } = states()
+  const { map } = locations
 
   return (
-    <View style={styles.container}>
+    <View style={{ height: '100%', height: view ? '37%' : '100%' }}>
 
       <MapView
+        ref={map}
         style={styles.map}
         initialRegion={{
           latitude: 36.765373,
@@ -60,18 +33,12 @@ const ORSMap = () => {
           <Polyline
             coordinates={routeCoordinates}
             strokeWidth={4}
-            strokeColor="blue"
+            strokeColor="#625ffe"
           />
         )}
       </MapView>
 
-      {/* <View style={{ position: 'absolute', top: '70.5%', width: '100%' }}>
-        <Button
-          title="Calculate Route"
-          onPress={calculateRoute}
-          disabled={!origin || !destination}
-        />
-      </View> */}
+
     </View>
   );
 };

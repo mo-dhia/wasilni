@@ -15,29 +15,21 @@ export default function Destination() {
                 if (to.current.isFocused()) {
                     to.current.blur()
                 }
-            }} style={{
-                position: 'absolute', width: '100%', height: '100%', backgroundColor: '#f8f8f8', display: 'flex',
-                paddingHorizontal: '4%',
-                paddingVertical: '10%', pointerEvents: 'none'
-            }}>
-                <View style={{ flex: 1, overflow: 'hidden', borderRadius: vw * 0.04 }}>
-
-                </View>
-            </Pressable>
-            <Pressable onPressIn={() => {
-                if (from.current.isFocused()) {
-                    from.current.blur();
-                }
-                if (to.current.isFocused()) {
-                    to.current.blur()
-                }
-            }} style={{ position: 'absolute', width: '100%', height: '58%', top: '5%', paddingHorizontal: '4%' }}>
+            }} style={{ width: '100%', height: '50%', top: '0%', paddingHorizontal: '4%', backgroundColor: '#f8f8f8' }}>
                 <Header />
                 <Search />
                 <View style={{ width: '100%', height: '15%', justifyContent: 'center' }}>
-                    <Text style={{ fontFamily: 'Montserrat', fontWeight: 900, fontSize: vw * 0.05 }}>Stations Near You</Text>
+                    <Text style={{ fontFamily: 'Montserrat', fontWeight: 900, fontSize: vw * 0.041 }}>Stations Near You</Text>
                 </View>
             </Pressable>
+            <View style={{ backgroundColor: 'transparent', position: 'absolute', bottom: 0, width: '100%', height: '50%', justifyContent: 'flex-end', pointerEvents: 'none' }}>
+                <View style={{ position: 'absolute', backgroundColor: '#f8f8f8', width: '4%', height: '100%', left: 0 }} />
+                <View style={{ position: 'absolute', backgroundColor: '#f8f8f8', width: '4%', height: '100%', right: 0 }} />
+
+            </View>
+            <View style={{ backgroundColor: '#f8f8f8', width: '100%', height: '15%', position: 'absolute', bottom: 0 }}>
+
+            </View>
         </>
     )
 }

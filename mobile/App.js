@@ -29,23 +29,21 @@ export default function App() {
   }, []);
 
   if (!fontLoaded) {
-    return null; // You can return a loading indicator here until fonts are loaded
+    return null;
   }
 
   return (
-    <View style={styles.container}>
-      <ORSMap />
+    <View style={{
+      flex: 1,
+      backgroundColor: 'gray',
+      justifyContent: 'flex-end',
+      fontFamily: 'Montserrat',
+      flexDirection: view ? 'column-reverse' : 'column'
+    }}>
+      <ORSMap view={view} />
       {view ? <Destination /> : <Default />}
       <StatusBar style="auto" />
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'gray',
-    justifyContent: 'flex-end',
-    fontFamily: 'Montserrat', // Set the font family here
-  },
-});
