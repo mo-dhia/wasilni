@@ -45,7 +45,7 @@ export const getNearbyStations = (userLat, userLong, radiusInKm) => {
             const stationLong = station.location._long;
             const distance = calculateDistance(userLat, userLong, stationLat, stationLong);
             if (distance <= radiusInKm) {
-                nearbyStations.push({ ...station, distance });
+                nearbyStations.push({ ...station, distance, type });
             }
         });
 
