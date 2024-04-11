@@ -14,7 +14,10 @@ export const handleInput = (setInputRender, current, data, setState) => {
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
         })
-        // setState(data)
+        axios.get(`https://wasilni.click/api/nearby/metro/36.765373/10.193074`).then(response => {
+            const { data } = response
+            console.log(data);
+        }).catch(err=>console.log(err))
     }
 }
 

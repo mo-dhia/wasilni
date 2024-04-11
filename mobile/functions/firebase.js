@@ -47,32 +47,35 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
     return R * c;
 }
 
+
+
+async function nearbyStations(userLat, userLong, radiusInKm, type) {
+    const nearbyStations = [];
+    // Reference to the "stations" collection
+    const stationsCollectionRef = collection(db, 'stations');
+    // Reference to the "Tunis" document within the "stations" collection
+    const tunisDocRef = doc(stationsCollectionRef, 'Tunis');
+    // Reference to the "metro" subcollection within the "Tunis" document
+    const metrosCollectionRef = collection(tunisDocRef, 'bus');
+    const querySnapshot = await getDocs(metrosCollectionRef);
+    console.log(querySnapshot.size, stations.bus.length);
+    querySnapshot.forEach((doc) => {
+        const station = doc.data();
+        // Access the latitude and longitude from the GeoPoint object
+        const stationLat = station.location._lat;
+        const stationLong = station.location._long;
+        const distance = calculateDistance(userLat, userLong, stationLat, stationLong);
+        if (distance <= radiusInKm) {
+            nearbyStations.push({ ...station, distance, type });
+        }
+    });
+
+    // Sort the stations by distance
+    nearbyStations.sort((a, b) => a.distance - b.distance);
+    return nearbyStations;
+}
 export const getNearbyStations = {
-    metro: async function (userLat, userLong, radiusInKm) {
-        const nearbyStations = [];
-        // Reference to the "stations" collection
-        const stationsCollectionRef = collection(db, 'stations');
-        // Reference to the "Tunis" document within the "stations" collection
-        const tunisDocRef = doc(stationsCollectionRef, 'Tunis');
-        // Reference to the "metro" subcollection within the "Tunis" document
-        const metrosCollectionRef = collection(tunisDocRef, 'bus');
-        const querySnapshot = await getDocs(metrosCollectionRef);
-        console.log(querySnapshot.size, stations.bus.length);
-        querySnapshot.forEach((doc) => {
-            const station = doc.data();
-            // Access the latitude and longitude from the GeoPoint object
-            const stationLat = station.location._lat;
-            const stationLong = station.location._long;
-            const distance = calculateDistance(userLat, userLong, stationLat, stationLong);
-            if (distance <= radiusInKm) {
-                nearbyStations.push({ ...station, distance });
-            }
-        });
-
-        // Sort the stations by distance
-        nearbyStations.sort((a, b) => a.distance - b.distance);
-
-        return nearbyStations;
-    }
+    bus: nearbyStations(userLat, userLong, radiusInKm, 'bus'),
+    metro: nearbyStations(userLat, userLong, radiusInKm, 'metro')
 }
 
