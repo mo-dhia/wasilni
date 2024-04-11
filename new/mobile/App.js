@@ -1,12 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
-import ORSMap from './ORSMap';
+import {  View, Image, Dimensions } from 'react-native';
 import Default from './components/default/default';
-import { dimensions, states } from './components/store';
+import {  states } from './components/store';
 import Destination from './components/destination/destination';
 import * as Font from 'expo-font';
-
+import Map from './components/default/map'
 export default function App() {
   const { setVW, setVH, view } = states();
   const [fontLoaded, setFontLoaded] = useState(false);
@@ -40,7 +39,7 @@ export default function App() {
       fontFamily: 'Montserrat',
       flexDirection: view ? 'column-reverse' : 'column'
     }}>
-      <ORSMap view={view} />
+      <Map view={view} />
       {view ? <Destination /> : <Default />}
       <StatusBar style="auto" />
     </View>

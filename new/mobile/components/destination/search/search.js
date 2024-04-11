@@ -5,9 +5,9 @@ import { calculateRoute } from '../../../functions/map_functions';
 import { handleInput } from '../../../functions/input_functions';
 
 export default function Search() {
-    const { vw, vh, setRouteCoordinates, destination, origin, setInputRender, search } = states();
+    const { vw, vh, setRouteCoordinates, destination, origin, setInputRender, search, setOrigin, setDestination } = states();
     const { from, to, activeInput } = locations
-   
+
     return (
         <View
             style={{
@@ -41,7 +41,7 @@ export default function Search() {
                         <ScrollView style={{ flexGrow: 1, flexShrink: 1, marginTop: '10%' }}>
 
                             {search.map((e, index) => (
-                                <TouchableOpacity onPress={() => handleInput(setInputRender, 0, e)} key={index} style={{
+                                <TouchableOpacity onPress={() => handleInput(setInputRender, 0, e, activeInput.current > 1 ? setDestination : setOrigin)} key={index} style={{
                                     width: '100%', height: vh * 0.08,
                                     justifyContent: 'center', alignItems: 'center'
                                 }}>

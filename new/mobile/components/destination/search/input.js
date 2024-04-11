@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { View, TextInput, Text, ScrollView, TouchableOpacity, Pressable } from 'react-native';
 import axios from 'axios'
 import { states, locations } from '../../store';
-import { handleInput } from '../../../functions/input_functions';
+import { autocomplete, handleInput } from '../../../functions/input_functions';
 const { activeInput } = locations
 
 export default function Input({ inputRef, vw, vh, start }) {
@@ -54,18 +54,3 @@ export default function Input({ inputRef, vw, vh, start }) {
 }
 
 
-const autocomplete = async (input, setSearch) => {
-    try {
-        const encodedInput = encodeURIComponent(input);
-        const response = await axios.get(`https://nominatim.openstreetmap.org/search?q=${encodedInput}&format=json&addressdetails=1&polygon_geojson=0&countrycodes=TN&viewbox=10.0718,36.6507,10.3523,36.9168&limit=3`);
-        const result = response.data.map(place => ({
-            name: place.display_name,
-            latitude: parseFloat(place.lat),
-            longitude: parseFloat(place.lon),
-        }))
-        setSearch(result)
-    } catch (error) {
-        console.error('Error fetching autocomplete results:', error);
-        setSearch([]);
-    }
-};
