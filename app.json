@@ -1,0 +1,38 @@
+{
+  "expo": {
+    "name": "Naql",
+    "slug": "Naql",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "scheme": "your-app-scheme",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": ["expo-router"],
+    "extra": {
+      "firebaseApiKey": "AIzaSyBhFLfyBfE1TfsFVT7OkrJeJeE4hf2_otA",
+      "firebaseAuthDomain": "naql-68aba.firebaseapp.com",
+      "firebaseProjectId": "naql-68aba",
+      "firebaseStorageBucket": "naql-68aba.appspot.com",
+      "firebaseMessagingSenderId": "703276550006",
+      "firebaseAppId": "1:703276550006:web:bec63cc3a335b4cbbb9c57"
+    }
+  }
+}
