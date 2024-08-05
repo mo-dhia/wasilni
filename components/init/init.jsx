@@ -1,14 +1,35 @@
 import React, { useEffect } from 'react';
-import { View, Text, Dimensions } from 'react-native';
+import { Dimensions, StatusBar, Platform } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import Constants from 'expo-constants';
 import states from '../../store/states';
 
 export default function Init() {
-    const { setVW, setVH } = states()
-    useEffect(() => {
-        const { width, height } = Dimensions.get('window');
-        setVW(width)
-        setVH(height)
-    }, []);
+    const { setVW, setVH } = states();
+    const insets = useSafeAreaInsets();
 
-    return null
+    useEffect(() => {
+        const updateDimensions = () => {
+            const { width, height } = Dimensions.get('window');
+            const statusBarHeight = Constants.statusBarHeight || 0;
+
+            // Calculate full height including status bar and safe areas
+            const fullHeight = height + statusBarHeight
+            //  + insets.top + insets.bottom;
+
+            setVW(width);
+            setVH(fullHeight);
+        };
+
+        // Initial update
+        updateDimensions();
+
+        // Listen for dimension changes (e.g., rotation)
+        const subscription = Dimensions.addEventListener('change', updateDimensions);
+
+        // Cleanup
+        return () => subscription.remove();
+    }, [insets]);
+
+    return null;
 }

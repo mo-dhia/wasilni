@@ -11,22 +11,11 @@ export default function SectionBot({ search }) {
     const animatedHeight = useRef(new Animated.Value(0)).current;
     const animatedOpacity = useRef(new Animated.Value(1)).current;
 
-    useEffect(() => {
-        const backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackPress);
-        return () => backHandler.remove();
-    }, [search]);
+    
 
     useEffect(() => {
         animateContainer(search === 'true');
     }, [search]);
-
-    const handleBackPress = () => {
-        if (search === 'true') {
-            toggleExpand();
-            return true; // Prevent default back action
-        }
-        return false; // Allow default back action
-    };
 
     const animateContainer = (expand) => {
         Animated.parallel([
@@ -65,7 +54,7 @@ export default function SectionBot({ search }) {
                 style={[
                     {
                         width: '100%',
-                        height: '100%',
+                        height: VH,
                         backgroundColor: '#FFFFFF',
                         zIndex: 1,
                         borderTopLeftRadius: VW * 0.06,
