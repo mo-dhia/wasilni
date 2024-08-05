@@ -1,10 +1,31 @@
-import { Slot } from 'expo-router';
+import { useEffect } from 'react';
+import { BackHandler } from 'react-native';
+import { Slot, useRouter, usePathname } from 'expo-router';
 import Init from '../components/init/init';
-import { Text } from 'react-native';
 
 export default function Layout() {
-    return <>
-        <Init />
-        <Slot />
-    </>
+    const router = useRouter();
+    const pathname = usePathname();
+
+    useEffect(() => {
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+            if (pathname === '/') {
+                // If we're on the home screen, let the OS handle the back button
+                return false;
+            } else {
+                // Otherwise, navigate back within the app
+                router.back();
+                return true;
+            }
+        });
+
+        return () => backHandler.remove();
+    }, [pathname]);
+
+    return (
+        <>
+            <Init />
+            <Slot />
+        </>
+    );
 }
