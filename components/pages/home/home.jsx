@@ -35,7 +35,7 @@ export default function Home() {
         <TouchableWithoutFeedback onPress={handleOutsidePress}>
             <View style={styles.container}>
                 <Map />
-                <SectionTop search={search} />
+                {/* <SectionTop search={search} /> */}
                 <SectionBot search={search} toggleExpand={toggleExpand} />
             </View>
         </TouchableWithoutFeedback>

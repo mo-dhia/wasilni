@@ -57,7 +57,7 @@ export async function getNearbyStations(lat, lon, radiusInKm) {
     const snapshot = await getDocs(q);
 
     const nearbyStations = [];
-    let fetchedDocs = snapshot.size;
+    // let fetchedDocs = snapshot.size;
 
     snapshot.forEach((doc) => {
       const station = doc.data();
@@ -82,7 +82,7 @@ export async function getNearbyStations(lat, lon, radiusInKm) {
     });
 
     console.log(
-      `Fetched ${fetchedDocs} documents, found ${nearbyStations.length} nearby stations`
+      `Fetched ${snapshot.size} documents, found ${nearbyStations.length} nearby stations`
     );
 
     return nearbyStations.sort((a, b) => a.distance - b.distance);
@@ -93,14 +93,14 @@ export async function getNearbyStations(lat, lon, radiusInKm) {
 }
 
 // Example call
-//  getNearbyStations(36.853885, 10.255016, 6)
-//    .then(stations => {
-//      console.log(`Found ${stations.length} nearby stations:`);
-//      stations.forEach(station => {
-//        console.log(`- ${station.name} (Line ${station.lineNumber}, Station ${station.stationNumber}): ${station.distance.toFixed(2)} km`);
-//      });
-//    })
-//    .catch(error => console.error('Error:', error));
+ getNearbyStations(36.853885, 10.255016, 6)
+   .then(stations => {
+     console.log(`Found ${stations.length} nearby stations:`);
+     stations.forEach(station => {
+       console.log(`- ${station.name} (Line ${station.lineNumber}, Station ${station.stationNumber}): ${station.distance.toFixed(2)} km`);
+     });
+   })
+   .catch(error => console.error('Error:', error));
 
 export async function getStationsByLine(lineNumber) {
   try {

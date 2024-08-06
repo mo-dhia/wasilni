@@ -1,50 +1,49 @@
-import React, { useRef, useEffect } from 'react';
-import { View, TouchableWithoutFeedback, Pressable, Animated } from 'react-native';
-import SearchSVG from '../../../SVGs/search.svg.jsx';
-import states from '../../../../store/states.js';
-import MapSVG from '../../../SVGs/map.svg.jsx';
-import styles from './sectionBot.styles';
-
-export default function SectionBot({ search, toggleExpand }) {
-    const { VW, VH } = states();
-    const animatedHeight = useRef(new Animated.Value(VH * 0.7)).current;
-    const animatedOpacity = useRef(new Animated.Value(1)).current;
-
-    useEffect(() => {
-        animateContainer(search === 'true');
-    }, [search]);
-
-    const animateContainer = (expand) => {
-        Animated.parallel([
-            Animated.timing(animatedHeight, {
-                toValue: expand ? 0 : 1,
-                duration: 300,
-                useNativeDriver: true,
-            }),
-            Animated.timing(animatedOpacity, {
-                toValue: expand ? 0 : 1,
-                duration: 300,
-                useNativeDriver: true,
-            })
-        ]).start();
-    };
-
-    return (
-        <TouchableWithoutFeedback onPress={toggleExpand}>
-            <Animated.View style={styles.container(VW, VH, animatedHeight)}>
-                <Animated.View style={styles.topContainer(VW, animatedOpacity)}>
-                    <Pressable onPress={toggleExpand} style={styles.searchContainer(VW)}>
-                        <View style={styles.searchIconContainer}>
-                            <SearchSVG style={{ opacity: 1 }} width={VW * 0.07} height={VW * 0.07} />
-                        </View>
-                        <View style={styles.searchInput} />
-                    </Pressable>
-
-                    <View style={styles.mapContainer(VW)}>
-                        <MapSVG width={VW * 0.065} height={VW * 0.065} />
+  {/* <View style={{
+                    width: '100%', height: '5%', flexDirection: 'row', justifyContent: 'center', gap: VW * 0.15,
+                    marginTop: '7.5%',
+                }}>
+                    <View style={{ height: 50, width: 60, backgroundColor: '#0E887D', justifyContent: 'center', alignItems: 'center', borderRadius: VW * 0.05 }}>
+                        <BusSVG width={50} height={50} />
                     </View>
-                </Animated.View>
-            </Animated.View>
-        </TouchableWithoutFeedback>
-    );
-}
+                    <View style={{ height: 50, width: 60, backgroundColor: '#0E887D', justifyContent: 'center', alignItems: 'center', borderRadius: VW * 0.05 }}>
+                        <TrainSVG width={50} height={50} />
+                    </View>
+                    <View style={{ height: 50, width: 60, backgroundColor: '#0E887D', justifyContent: 'center', alignItems: 'center', borderRadius: VW * 0.05 }}>
+                        <MetroSVG width={50} height={50} />
+                    </View>
+                </View> */}
+
+
+
+
+
+
+
+
+                  {/* <View style={{ marginTop: VH * 0.3, zIndex: 5 }}>
+                {locations.map((e, i) => <Pressable key={i}
+                    onPress={() => {
+                        if (activeInput === 1) {
+                            // setDeparture(e)
+                            // console.log('fired')
+                            // console.log(getNearbyStations(e.latitude, e.longitude, 2))
+
+                            getNearbyStations(e.latitude, e.longitude, 1)
+                               .then(stations => {
+                                 console.log(`Found ${stations.length} nearby stations:`);
+                                 setDeparture(stations)
+                                 stations.forEach(station => {
+                                   console.log(`- ${station.name} (Line ${station.lineNumber}, Station ${station.stationNumber}): ${station.distance.toFixed(2)} km`);
+                                 });
+                               }).catch(error => console.error('Error:', error));
+
+                        } else if (activeInput === 2) {
+                            // setDestination(e)
+
+                        }
+                    }
+                    }
+                    style={{ paddingVertical: 10, paddingHorizontal: 20 }}>
+                    <Text>{e.name}</Text>
+                </Pressable>)}
+            </View > */}
