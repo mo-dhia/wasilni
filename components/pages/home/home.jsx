@@ -3,11 +3,17 @@ import { StyleSheet, TouchableWithoutFeedback, View, Keyboard, BackHandler } fro
 import Map from './map/map';
 import SectionBot from './sectionBot/sectionBot';
 import SectionTop from './sectionTop/sectionTop';
-import { useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 
 export default function Home() {
     const { search } = useLocalSearchParams();
+    const router = useRouter();
 
+
+    const toggleExpand = () => {
+        const newsearch = search !== 'true';
+        router.setParams({ search: newsearch.toString() });
+    };
     const handleBackPress = () => {
         if (search === 'true') {
             toggleExpand();
@@ -20,7 +26,7 @@ export default function Home() {
         return () => backHandler.remove();
     }, [search]);
 
-   
+
     const handleOutsidePress = () => {
         Keyboard.dismiss();
     };
@@ -30,7 +36,7 @@ export default function Home() {
             <View style={styles.container}>
                 <Map />
                 <SectionTop search={search} />
-                <SectionBot search={search} />
+                <SectionBot search={search} toggleExpand={toggleExpand} />
             </View>
         </TouchableWithoutFeedback>
     );
