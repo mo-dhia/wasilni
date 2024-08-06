@@ -19,8 +19,7 @@ export default function SectionBot({ search, toggleExpand }) {
 
     sectionBotInit(search, animatedHeight, animatedOpacity)
     useEffect(() => {
-        setExpanded(!expanded)
-        console.log('fired')
+        setExpanded(search)
     }, [search])
     return (
         <>
