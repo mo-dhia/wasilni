@@ -1,4 +1,3 @@
-// sectionBot.styles.js
 import { StyleSheet, Animated } from 'react-native';
 
 const styles = (VW, VH, animatedHeight,animatedOpacity) => (
